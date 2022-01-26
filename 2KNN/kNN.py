@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 '''
 Created on Sep 16, 2010
@@ -13,6 +13,9 @@ import operator
 import os
 from collections import Counter
 
+# hjw 0126
+import matplotlib
+import matplotlib.pyplot as plt
 
 def createDataSet():
     """
@@ -258,6 +261,16 @@ def datingClassTest():
     print("the total error rate is: %f" % (errorCount / numTestVecs))
     print(errorCount)
 
+def classifyPerson():
+    resultList = ['not at all', 'in small doses', 'in large doses']
+    percentTats = float(input("percentage of time spent playing video games ?"))
+    ffMiles = float(input("frequent filer miles earned per year?"))
+    iceCream = float(input("liters of ice cream consumed per year?"))
+    datingDataMat, datingLabels = file2matrix('/home/hjw/learnML/ml_tutorial/data/2.KNN/datingTestSet2.txt')
+    normMat, ranges, minVals = autoNorm(datingDataMat)
+    inArr = array([ffMiles, percentTats, iceCream])
+    classifierResult = classify0((inArr-minVals)/ranges,normMat,datingLabels, 3)
+    print("You will probably like this person: ", resultList[classifierResult - 1])
 
 def img2vector(filename):
     """
@@ -318,8 +331,23 @@ def handwritingClassTest():
     print("\nthe total number of errors is: %d" % errorCount)
     print("\nthe total error rate is: %f" % (errorCount / mTest))
 
+def testhjw():
+    print("hello")
+    print("I miss you")
+    datingDataMat, datingLabels = file2matrix("/home/hjw/learnML/ml_tutorial/data/2.KNN/datingTestSet2.txt")  # load data setfrom file
+    print(len(datingDataMat))
+    print(len(datingLabels))
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(datingDataMat[:, 0], datingDataMat[:, 1], 15.0*array(datingLabels), 15.0*array(datingLabels))
+    plt.show()
+
+def main():
+    #testhjw()
+    # test1()
+    #datingClassTest()
+    classifyPerson()
+    #handwritingClassTest()
 
 if __name__ == '__main__':
-    # test1()
-    # datingClassTest()
-    handwritingClassTest()
+    main()
