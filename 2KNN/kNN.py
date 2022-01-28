@@ -343,10 +343,10 @@ def testhjw():
     plt.show()
 
 def main():
-    #testhjw()
+    testhjw()
     # test1()
     #datingClassTest()
-    classifyPerson()
+    #classifyPerson()
     #handwritingClassTest()
 
 if __name__ == '__main__':
